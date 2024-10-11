@@ -1,0 +1,128 @@
+[gd_scene load_steps=7 format=3 uid="uid://d1i85kh8rn6uj"]
+
+[ext_resource type="Script" path="res://Scripts/MultiplierTest.gd" id="1_d3hbx"]
+[ext_resource type="Texture2D" uid="uid://d38eafstelwxn" path="res://Vid/coin.png" id="3_0qgn4"]
+[ext_resource type="PackedScene" uid="uid://5gqoenu0502a" path="res://Scenes/health_bar.tscn" id="3_v43hq"]
+[ext_resource type="FontFile" uid="uid://b304kctevhwix" path="res://font/PixelifySans-VariableFont_wght.ttf" id="5_ix4rb"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_qyk1b"]
+bg_color = Color(0, 0, 0, 0.490196)
+
+[sub_resource type="WorldBoundaryShape2D" id="WorldBoundaryShape2D_0yb1b"]
+distance = -339.0
+
+[node name="MultiplierTest" type="Node2D"]
+script = ExtResource("1_d3hbx")
+
+[node name="Host" type="Button" parent="."]
+offset_left = 57.0
+offset_top = 308.0
+offset_right = 108.0
+offset_bottom = 339.0
+text = "HOST"
+
+[node name="Join" type="Button" parent="."]
+offset_left = 62.0
+offset_top = 362.0
+offset_right = 105.0
+offset_bottom = 393.0
+text = "JOIN
+"
+
+[node name="MultiplayerSpawner" type="MultiplayerSpawner" parent="."]
+_spawnable_scenes = PackedStringArray("res://Entities/Player/wizard/character_3.tscn")
+spawn_path = NodePath("..")
+
+[node name="UI_manager" type="CanvasLayer" parent="."]
+
+[node name="TextureRect" type="TextureRect" parent="UI_manager"]
+offset_left = 23.0
+offset_top = 57.0
+offset_right = 63.0
+offset_bottom = 97.0
+texture = ExtResource("3_0qgn4")
+
+[node name="Label" type="Label" parent="UI_manager"]
+offset_left = 69.0
+offset_top = 54.0
+offset_right = 109.0
+offset_bottom = 96.0
+theme_override_font_sizes/font_size = 30
+text = "20"
+
+[node name="HealthBar" parent="UI_manager" instance=ExtResource("3_v43hq")]
+offset_left = 26.0
+offset_top = 23.0
+offset_right = 466.0
+offset_bottom = 43.0
+
+[node name="Leaderboard" type="Control" parent="UI_manager"]
+custom_minimum_size = Vector2(200, 0)
+layout_mode = 3
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+grow_horizontal = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="UI_manager/Leaderboard"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -199.0
+offset_top = 32.0
+offset_right = -25.0
+offset_bottom = 246.0
+grow_horizontal = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="UI_manager/Leaderboard/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 8
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 8
+theme_override_constants/margin_bottom = 8
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI_manager/Leaderboard/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="title" type="Label" parent="UI_manager/Leaderboard/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ix4rb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qyk1b")
+text = "Leader boards"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="UI_manager/Leaderboard/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ix4rb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qyk1b")
+text = "1   Deelii"
+
+[node name="Label3" type="Label" parent="UI_manager/Leaderboard/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ix4rb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qyk1b")
+text = "2 someone"
+
+[node name="Label4" type="Label" parent="UI_manager/Leaderboard/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ix4rb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qyk1b")
+text = "3 someone"
+
+[node name="Label5" type="Label" parent="UI_manager/Leaderboard/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_fonts/font = ExtResource("5_ix4rb")
+theme_override_styles/normal = SubResource("StyleBoxFlat_qyk1b")
+text = "4 someone"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="."]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="StaticBody2D"]
+position = Vector2(665, 81)
+shape = SubResource("WorldBoundaryShape2D_0yb1b")
+one_way_collision = true
+
+[connection signal="pressed" from="Host" to="." method="_on_host_pressed"]
+[connection signal="pressed" from="Join" to="." method="_on_join_pressed"]
